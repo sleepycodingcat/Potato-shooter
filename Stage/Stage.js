@@ -23,5 +23,9 @@ export default class Stage extends StageBase {
     this.sounds = [new Sound("pop", "./Stage/sounds/pop.wav")];
 
     this.triggers = [];
+
+    this.vars.shakeDx = 0;
+    this.vars.shakeDy = 0;
+    this.vars.bang = [];
   }
 }

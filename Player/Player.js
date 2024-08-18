@@ -24,11 +24,12 @@ export default class Player extends Sprite {
 
     this.triggers = [
       new Trigger(Trigger.GREEN_FLAG, this.whenGreenFlagClicked),
+      new Trigger(Trigger.BROADCAST, { name: "shake" }, this.whenIReceiveShake),
     ];
 
-    this.vars.speedX = -4.08016173285184e-41;
-    this.vars.speedY = 1.469278472378841e-19;
-    this.vars.fireRate = -0.5;
+    this.vars.speedX = -0.007622976619031903;
+    this.vars.speedY = -3.2632579796216617e-12;
+    this.vars.fireRate = 0;
   }
 
   *whenGreenFlagClicked() {
@@ -36,6 +37,8 @@ export default class Player extends Sprite {
     this.moveAhead();
     this.vars.speedX = 0;
     this.vars.speedY = 0;
+    this.stage.vars.shakeDx = 0;
+    this.stage.vars.shakeDy = 0;
     while (true) {
       yield* this.moveY(
         this.toNumber(this.keyPressed("up arrow")) -
@@ -64,13 +67,15 @@ export default class Player extends Sprite {
   *moveX(joystickX) {
     this.vars.speedX += 0.9 * this.toNumber(joystickX);
     this.vars.speedX = 0.9 * this.toNumber(this.vars.speedX);
-    this.x += this.toNumber(this.vars.speedX);
+    this.x +=
+      this.toNumber(this.vars.speedX) + this.toNumber(this.stage.vars.shakeDx);
   }
 
   *moveY(joystickY) {
     this.vars.speedY += 0.9 * this.toNumber(joystickY);
     this.vars.speedY = 0.9 * this.toNumber(this.vars.speedY);
-    this.y += this.toNumber(this.vars.speedY);
+    this.y +=
+      this.toNumber(this.vars.speedY) + this.toNumber(this.stage.vars.shakeDy);
   }
 
   *shoot() {
@@ -79,8 +84,29 @@ export default class Player extends Sprite {
     } else {
       if (this.keyPressed("space") || this.mouse.down) {
         this.sprites["Laser"].createClone();
-        this.vars.fireRate = 1.5;
+        this.vars.fireRate = 2;
       }
     }
+  }
+
+  *whenIReceiveShake() {
+    this.stage.vars.shakeDx = Math.sin(this.degToRad(this.direction));
+    this.stage.vars.shakeDy = Math.cos(this.degToRad(this.direction));
+    yield* this.shake(-13, -13);
+    yield* this.shake(-0.6, -0.6);
+    for (let i = 0; i < 16; i++) {
+      yield* this.shake(this.random(0.5, 0.8), this.random(0.5, 0.8));
+      yield;
+    }
+    yield* this.shake(0, 0);
+  }
+
+  *shake(dx, dy) {
+    this.stage.vars.shakeDx =
+      this.toNumber(this.stage.vars.shakeDx) * this.toNumber(dx);
+    this.stage.vars.shakeDy =
+      this.toNumber(this.stage.vars.shakeDy) * this.toNumber(dy);
+    yield* this.wait(0);
+    yield* this.wait(0);
   }
 }

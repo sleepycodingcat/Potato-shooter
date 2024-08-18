@@ -42,6 +42,8 @@ export default class Laser extends Sprite {
     this.visible = true;
     while (!this.touching("edge")) {
       this.move(11);
+      this.x += this.toNumber(this.stage.vars.shakeDx);
+      this.y += this.toNumber(this.stage.vars.shakeDy);
       yield;
     }
     this.deleteThisClone();

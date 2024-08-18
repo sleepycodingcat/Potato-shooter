@@ -39,7 +39,7 @@ export default class AllAudio extends Sprite {
       new Trigger(Trigger.GREEN_FLAG, this.whenGreenFlagClicked),
     ];
 
-    this.vars.music = 2;
+    this.vars.music = 1;
   }
 
   *whenGreenFlagClicked() {

@@ -8,19 +8,20 @@ import Player from "./Player/Player.js";
 import Laser from "./Laser/Laser.js";
 import AllAudio from "./AllAudio/AllAudio.js";
 import Potato from "./Potato/Potato.js";
+import Boom from "./Boom/Boom.js";
 
 const stage = new Stage({ costumeNumber: 1 });
 
 const sprites = {
   Player: new Player({
-    x: -40.50000000000001,
-    y: 32.4,
-    direction: -44.98058428420197,
+    x: 9.788406412197064,
+    y: -59.29377132494186,
+    direction: -39.999591282686595,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
     costumeNumber: 1,
     size: 100,
     visible: true,
-    layerOrder: 4,
+    layerOrder: 5,
   }),
   Laser: new Laser({
     x: 36,
@@ -43,14 +44,24 @@ const sprites = {
     layerOrder: 3,
   }),
   Potato: new Potato({
-    x: 210.63525810321693,
-    y: -279.52242851655245,
-    direction: -37,
+    x: 279.5224285165525,
+    y: -210.63525810321684,
+    direction: -53,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
-    costumeNumber: 4,
+    costumeNumber: 3,
     size: 150,
     visible: false,
     layerOrder: 1,
+  }),
+  Boom: new Boom({
+    x: 243.4613923466517,
+    y: -116.43706463752339,
+    direction: 90,
+    rotationStyle: Sprite.RotationStyle.ALL_AROUND,
+    costumeNumber: 1,
+    size: 100,
+    visible: false,
+    layerOrder: 4,
   }),
 };
 

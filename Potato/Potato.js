@@ -36,16 +36,21 @@ export default class Potato extends Sprite {
       }),
     ];
 
-    this.sounds = [new Sound("pop", "./Potato/sounds/pop.wav")];
+    this.sounds = [
+      new Sound("Explosion6", "./Potato/sounds/Explosion6.wav"),
+      new Sound("Explosion2", "./Potato/sounds/Explosion2.wav"),
+      new Sound("Explosion18", "./Potato/sounds/Explosion18.wav"),
+    ];
 
     this.triggers = [
       new Trigger(Trigger.GREEN_FLAG, this.whenGreenFlagClicked),
       new Trigger(Trigger.CLONE_START, this.startAsClone),
     ];
 
-    this.vars.dir = -37;
+    this.vars.dir = -53;
     this.vars.speed = 1;
-    this.vars.potato = 4;
+    this.vars.potato = 3;
+    this.vars.health = 10;
   }
 
   *whenGreenFlagClicked() {
@@ -53,10 +58,10 @@ export default class Potato extends Sprite {
     this.moveBehind();
     this.size = 150;
     this.visible = false;
-    yield* this.wait(0);
+    yield* this.wait(2);
     while (true) {
       yield* this.newEnemy();
-      yield* this.wait(5);
+      yield* this.wait(7);
       yield;
     }
   }
@@ -70,12 +75,14 @@ export default class Potato extends Sprite {
     this.move(-350);
     this.costume = this.vars.potato;
     this.vars.speed = 1;
+    this.vars.health = 10;
     this.createClone();
   }
 
   *startAsClone() {
     this.visible = true;
     while (true) {
+      this.effects.brightness = 0;
       if (this.touching(this.sprites["Laser"].andClones())) {
         yield* this.enemyHit();
       }
@@ -86,6 +93,8 @@ export default class Potato extends Sprite {
       this.y +=
         this.toNumber(this.vars.speed) *
         Math.cos(this.degToRad(this.toNumber(this.vars.dir)));
+      this.x += this.toNumber(this.stage.vars.shakeDx);
+      this.y += this.toNumber(this.stage.vars.shakeDy);
       this.direction += 5;
       yield* this.wrapAround();
       this.costume = this.vars.potato;
@@ -111,15 +120,36 @@ export default class Potato extends Sprite {
   }
 
   *enemyHit() {
+    if (this.compare(this.vars.health, 0) > 0) {
+      yield* this.startSound("Explosion2");
+      this.vars.health--;
+      this.effects.brightness = 100;
+      return;
+    }
+    if (this.compare(this.size, 100) > 0) {
+      yield* this.startSound("Explosion18");
+      this.vars.health = 3;
+      this.stage.vars.bang.push(2);
+      this.broadcast("shake");
+    } else {
+      yield* this.startSound("Explosion6");
+      this.stage.vars.bang.push(1);
+    }
+    this.stage.vars.bang.push(this.x);
+    this.stage.vars.bang.push(this.y);
     this.size = this.size / 2;
     if (this.compare(this.size, 35) < 0) {
       this.deleteThisClone();
     }
     this.vars.speed = this.toNumber(this.vars.speed) * 1.5;
     this.vars.dir += this.random(0, 180);
+    this.vars.potato = this.random(1, 4);
+    this.createClone();
+    this.costume = this.vars.potato;
+    this.vars.dir += 120;
+    this.vars.potato = this.random(1, 4);
     this.createClone();
     this.vars.dir += 120;
-    this.createClone();
-    this.vars.dir += 120;
+    this.costume = this.vars.potato;
   }
 }

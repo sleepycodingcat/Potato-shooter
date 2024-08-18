@@ -26,9 +26,9 @@ export default class Player extends Sprite {
       new Trigger(Trigger.GREEN_FLAG, this.whenGreenFlagClicked),
     ];
 
-    this.vars.speedX = -1.0695918406120232e-13;
-    this.vars.speedY = -1.6440828890345206e-13;
-    this.vars.fireRate = 0;
+    this.vars.speedX = -4.08016173285184e-41;
+    this.vars.speedY = 1.469278472378841e-19;
+    this.vars.fireRate = -0.5;
   }
 
   *whenGreenFlagClicked() {
@@ -79,7 +79,7 @@ export default class Player extends Sprite {
     } else {
       if (this.keyPressed("space") || this.mouse.down) {
         this.sprites["Laser"].createClone();
-        this.vars.fireRate = 2;
+        this.vars.fireRate = 1.5;
       }
     }
   }

@@ -27,8 +27,8 @@ export default class Player extends Sprite {
       new Trigger(Trigger.BROADCAST, { name: "shake" }, this.whenIReceiveShake),
     ];
 
-    this.vars.speedX = -0.007622976619031903;
-    this.vars.speedY = -3.2632579796216617e-12;
+    this.vars.speedX = 0.000171699019275002;
+    this.vars.speedY = 0.00008865170806517546;
     this.vars.fireRate = 0;
   }
 

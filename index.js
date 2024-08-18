@@ -9,19 +9,20 @@ import Laser from "./Laser/Laser.js";
 import AllAudio from "./AllAudio/AllAudio.js";
 import Potato from "./Potato/Potato.js";
 import Boom from "./Boom/Boom.js";
+import Score from "./Score/Score.js";
 
 const stage = new Stage({ costumeNumber: 1 });
 
 const sprites = {
   Player: new Player({
-    x: 9.788406412197064,
-    y: -59.29377132494186,
-    direction: -39.999591282686595,
+    x: 88.92205351030192,
+    y: 66.07173399830862,
+    direction: -65.75090612253771,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
     costumeNumber: 1,
     size: 100,
     visible: true,
-    layerOrder: 5,
+    layerOrder: 6,
   }),
   Laser: new Laser({
     x: 36,
@@ -44,24 +45,34 @@ const sprites = {
     layerOrder: 3,
   }),
   Potato: new Potato({
-    x: 279.5224285165525,
-    y: -210.63525810321684,
-    direction: -53,
+    x: -169.683367086218,
+    y: -306.1168974987885,
+    direction: 29,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
-    costumeNumber: 3,
+    costumeNumber: 1,
     size: 150,
     visible: false,
     layerOrder: 1,
   }),
   Boom: new Boom({
-    x: 243.4613923466517,
-    y: -116.43706463752339,
+    x: 144.62501825041937,
+    y: 112.815064882399,
     direction: 90,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
     costumeNumber: 1,
     size: 100,
     visible: false,
     layerOrder: 4,
+  }),
+  Score: new Score({
+    x: 225,
+    y: 127,
+    direction: 90,
+    rotationStyle: Sprite.RotationStyle.ALL_AROUND,
+    costumeNumber: 11,
+    size: 75,
+    visible: false,
+    layerOrder: 5,
   }),
 };
 

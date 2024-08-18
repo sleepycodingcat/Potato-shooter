@@ -47,13 +47,14 @@ export default class Potato extends Sprite {
       new Trigger(Trigger.CLONE_START, this.startAsClone),
     ];
 
-    this.vars.dir = -53;
+    this.vars.dir = 29;
     this.vars.speed = 1;
-    this.vars.potato = 3;
+    this.vars.potato = 1;
     this.vars.health = 10;
   }
 
   *whenGreenFlagClicked() {
+    this.stage.vars.score = 0;
     this.costume = 1;
     this.moveBehind();
     this.size = 150;
@@ -121,17 +122,20 @@ export default class Potato extends Sprite {
 
   *enemyHit() {
     if (this.compare(this.vars.health, 0) > 0) {
+      this.stage.vars.score++;
       yield* this.startSound("Explosion2");
       this.vars.health--;
       this.effects.brightness = 100;
       return;
     }
     if (this.compare(this.size, 100) > 0) {
+      this.stage.vars.score++;
       yield* this.startSound("Explosion18");
       this.vars.health = 3;
       this.stage.vars.bang.push(2);
       this.broadcast("shake");
     } else {
+      this.stage.vars.score++;
       yield* this.startSound("Explosion6");
       this.stage.vars.bang.push(1);
     }

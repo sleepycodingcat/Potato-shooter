@@ -26,7 +26,8 @@ export default class Stage extends StageBase {
 
     this.vars.shakeDx = 0;
     this.vars.shakeDy = 0;
-    this.vars.score = 55;
+    this.vars.score = 0;
     this.vars.bang = [];
+    this.vars.healths = [];
   }
 }

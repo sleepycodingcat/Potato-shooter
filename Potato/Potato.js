@@ -47,10 +47,11 @@ export default class Potato extends Sprite {
       new Trigger(Trigger.CLONE_START, this.startAsClone),
     ];
 
-    this.vars.dir = 29;
+    this.vars.dir = -174;
     this.vars.speed = 1;
-    this.vars.potato = 1;
+    this.vars.potato = 4;
     this.vars.health = 10;
+    this.vars.maxHealth = 10;
   }
 
   *whenGreenFlagClicked() {
@@ -62,7 +63,7 @@ export default class Potato extends Sprite {
     yield* this.wait(2);
     while (true) {
       yield* this.newEnemy();
-      yield* this.wait(7);
+      yield* this.wait(4.5);
       yield;
     }
   }
@@ -77,6 +78,7 @@ export default class Potato extends Sprite {
     this.costume = this.vars.potato;
     this.vars.speed = 1;
     this.vars.health = 10;
+    this.vars.maxHealth = this.vars.health;
     this.createClone();
   }
 
@@ -99,6 +101,13 @@ export default class Potato extends Sprite {
       this.direction += 5;
       yield* this.wrapAround();
       this.costume = this.vars.potato;
+      if (this.compare(this.size, 39) > 0) {
+        yield* this.showHealthbarOfOffestY(
+          this.vars.health,
+          this.vars.maxHealth,
+          -35
+        );
+      }
       yield;
     }
   }
@@ -145,6 +154,7 @@ export default class Potato extends Sprite {
     if (this.compare(this.size, 35) < 0) {
       this.deleteThisClone();
     }
+    this.vars.maxHealth = this.vars.health;
     this.vars.speed = this.toNumber(this.vars.speed) * 1.5;
     this.vars.dir += this.random(0, 180);
     this.vars.potato = this.random(1, 4);
@@ -155,5 +165,12 @@ export default class Potato extends Sprite {
     this.createClone();
     this.vars.dir += 120;
     this.costume = this.vars.potato;
+  }
+
+  *showHealthbarOfOffestY(health, max, y) {
+    this.stage.vars.healths.push(this.x);
+    this.stage.vars.healths.push(this.y + this.toNumber(y));
+    this.stage.vars.healths.push(this.toNumber(health) / this.toNumber(max));
+    this.sprites["Healthbar"].createClone();
   }
 }

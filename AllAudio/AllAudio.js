@@ -29,6 +29,11 @@ export default class AllAudio extends Sprite {
         "marshmello - FinD Me.mp3",
         "./AllAudio/sounds/marshmello - FinD Me.mp3.wav"
       ),
+      new Sound(
+        "157014_ParagonX9___Infiltration.mp3",
+        "./AllAudio/sounds/157014_ParagonX9___Infiltration.mp3.wav"
+      ),
+      new Sound("Music", "./AllAudio/sounds/Music.wav"),
       new Sound("Laser_Shoot16", "./AllAudio/sounds/Laser_Shoot16.wav"),
       new Sound("Explosion6", "./AllAudio/sounds/Explosion6.wav"),
       new Sound("Explosion2", "./AllAudio/sounds/Explosion2.wav"),
@@ -44,12 +49,18 @@ export default class AllAudio extends Sprite {
 
   *whenGreenFlagClicked() {
     while (true) {
-      this.vars.music = this.random(1, 2);
+      this.vars.music = this.random(1, 4);
       if (this.toNumber(this.vars.music) === 1) {
         yield* this.playSoundUntilDone("n-Dimensions (Main Theme - Retro");
       }
       if (this.toNumber(this.vars.music) === 2) {
         yield* this.playSoundUntilDone("marshmello - FinD Me.mp3");
+      }
+      if (this.toNumber(this.vars.music) === 3) {
+        yield* this.playSoundUntilDone("157014_ParagonX9___Infiltration.mp3");
+      }
+      if (this.toNumber(this.vars.music) === 4) {
+        yield* this.playSoundUntilDone("Music");
       }
       yield;
     }

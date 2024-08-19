@@ -10,19 +10,20 @@ import AllAudio from "./AllAudio/AllAudio.js";
 import Potato from "./Potato/Potato.js";
 import Boom from "./Boom/Boom.js";
 import Score from "./Score/Score.js";
+import Healthbar from "./Healthbar/Healthbar.js";
 
 const stage = new Stage({ costumeNumber: 1 });
 
 const sprites = {
   Player: new Player({
-    x: 88.92205351030192,
-    y: 66.07173399830862,
-    direction: -65.75090612253771,
+    x: 0,
+    y: 0,
+    direction: -1.5911402711946039,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
     costumeNumber: 1,
     size: 100,
     visible: true,
-    layerOrder: 6,
+    layerOrder: 7,
   }),
   Laser: new Laser({
     x: 36,
@@ -45,9 +46,9 @@ const sprites = {
     layerOrder: 3,
   }),
   Potato: new Potato({
-    x: -169.683367086218,
-    y: -306.1168974987885,
-    direction: 29,
+    x: 36.58496214367867,
+    y: 348.0826633788957,
+    direction: -174,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
     costumeNumber: 1,
     size: 150,
@@ -55,11 +56,11 @@ const sprites = {
     layerOrder: 1,
   }),
   Boom: new Boom({
-    x: 144.62501825041937,
-    y: 112.815064882399,
+    x: -93.66228036509301,
+    y: 164.22154795203645,
     direction: 90,
     rotationStyle: Sprite.RotationStyle.ALL_AROUND,
-    costumeNumber: 1,
+    costumeNumber: 2,
     size: 100,
     visible: false,
     layerOrder: 4,
@@ -73,6 +74,16 @@ const sprites = {
     size: 75,
     visible: false,
     layerOrder: 5,
+  }),
+  Healthbar: new Healthbar({
+    x: 36,
+    y: 28,
+    direction: 90,
+    rotationStyle: Sprite.RotationStyle.ALL_AROUND,
+    costumeNumber: 7,
+    size: 100,
+    visible: false,
+    layerOrder: 6,
   }),
 };
 
